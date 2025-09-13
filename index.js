@@ -1,39 +1,61 @@
-import { combineReducers } from 'redux';
-import { connectRouter } from 'connected-react-router';
-import { reducer as formReducer } from 'redux-form';
-import { session } from '../sessions/reducers/session';
-import { notifications } from '../notifications/reducers/notifications';
-import { users } from '../users/reducers/users';
-import { currentUser } from '../users/reducers/current-user';
-import { user } from '../users/reducers/user';
-import { cars } from '../cars/reducers/cars';
-import { carOptions } from '../cars/reducers/car-options';
-import { car } from '../cars/reducers/car';
-import { rides } from '../rides/reducers/rides';
-import { ride } from '../rides/reducers/ride';
-import { rideOptions } from '../rides/reducers/ride-options';
-import { ridesSearch } from '../rides/reducers/rides-search';
-import { ridesDriver } from '../rides/reducers/rides-driver';
-import { ridesPassenger } from '../rides/reducers/rides-passenger';
+import React from 'react'
+import { render } from 'react-dom'
+import { browserHistory } from 'react-router-dom'
+import { syncHistoryWithStore } from 'react-router-redux'
+import { AppContainer } from 'react-hot-loader'
+import configureStore from './store/configureStore'
+import Root from './containers/Root'
+import { APIEndpoints, ActionCableURL } from './constants/constants'
+import { loginFromCookie, saveToLocalStorage } from './sessions/actions/session'
+import { fetchCurrentUser } from './users/actions/users'
+import { fetchNotifications } from './notifications/actions/notifications'
 
-const createRootReducer = (history) =>
-  combineReducers({
-    router: connectRouter(history),
-    form: formReducer,
-    session,
-    users,
-    user,
-    currentUser,
-    notifications,
-    cars,
-    car,
-    carOptions,
-    rides,
-    ride,
-    rideOptions,
-    ridesSearch,
-    ridesDriver,
-    ridesPassenger,
-  });
+// Import stylesheets
+import './stylesheets/application.css'
 
-export default createRootReducer;
+function getFromLocalStorage(store) {
+  const email = localStorage.getItem('email')
+  const access_token = localStorage.getItem('access_token')
+  const data = { email: email, access_token: access_token }
+  if (email != null && access_token != null) {
+    store.dispatch(loginFromCookie(data))
+      .then(() => {
+        store.dispatch(fetchCurrentUser())
+        store.dispatch(fetchNotifications())
+        window.cable = ActionCable.createConsumer(`${ActionCableURL}?email=${email}&token=${access_token}`)
+        store.dispatch(saveToLocalStorage(email, access_token))
+        renderApp(store)
+      })
+      .catch((error) => {
+        localStorage.clear()
+        renderApp(store)
+        /* TODO: migrate to useNavigate() */ browserHistory.push('/login')
+      })
+  } else {
+    renderApp(store)
+  }
+}
+
+function renderRoot(Root, store, history) {
+  render(
+    <AppContainer>
+      <Root store={store} history={history} />
+    </AppContainer>,
+    document.getElementById('root')
+  )
+}
+
+function renderApp(store) {
+  const history = syncHistoryWithStore(browserHistory, store)
+  renderRoot(Root, store, history)
+
+  if (module.hot) {
+    module.hot.accept('./containers/Root', () => {
+      const Root = require('./containers/Root').default;
+      renderRoot(Root, store, history)
+    })
+  }
+}
+
+const store = configureStore(browserHistory)
+getFromLocalStorage(store)

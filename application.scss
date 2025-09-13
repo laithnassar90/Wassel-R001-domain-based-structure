@@ -1,0 +1,26 @@
+// Import Google Fonts
+@import './fonts.css';
+
+// Import modular stylesheets
+@import './users/index';
+@import './cars/index';
+@import './ride-requests/index';
+@import './rides/index';
+@import './session/index';
+@import './shared/index';
+@import './Home.scss';
+
+// Global styles
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Add other global styles as needed */

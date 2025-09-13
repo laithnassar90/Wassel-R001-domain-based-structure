@@ -1,0 +1,428 @@
+/* Wassel Application Styles (Based on Wassel Figma Theme) */
+
+/* Define CSS variables from Figma theme */
+:root {
+  /* Colors (replace with Figma theme values) */
+  --primary: #1976d2; /* Figma Primary color */
+  --primary-dark: #1565c0; /* Darker shade for hover */
+  --secondary: #6c757d; /* Figma Secondary color */
+  --background: #f5f5f5; /* Figma Background color */
+  --surface: #ffffff; /* Cards, containers */
+  --text-primary: #1a202c; /* Main text */
+  --text-secondary: #718096; /* Subtitles, labels */
+  --border: #e2e8f0; /* Borders, dividers */
+  --error: #dc2626; /* Form errors */
+  --shadow: rgba(0, 0, 0, 0.1); /* Shadows */
+
+  /* Typography (replace with Figma theme values) */
+  --font-family: 'Roboto', sans-serif; /* Figma font */
+  --font-size-base: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 24px;
+
+  /* Spacing (replace with Figma theme values) */
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+}
+
+/* Global reset and base styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  margin: 0;
+  padding: 0;
+  background: var(--background);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+#root {
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Container styles (used in application.js) */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-md);
+  background: var(--surface);
+  border-radius: var(--spacing-sm);
+  box-shadow: 0 2px 8px var(--shadow);
+  margin-top: var(--spacing-md);
+}
+
+#main {
+  margin-top: 64px;
+  min-height: calc(100vh - 64px);
+  padding: var(--spacing-md);
+}
+
+/* Header styles (for Header component in application.js) */
+.header {
+  background: var(--primary);
+  color: var(--surface);
+  box-shadow: 0 2px 4px var(--shadow);
+  padding: var(--spacing-md);
+}
+
+/* Dashboard/Home styles (for dashboard routes) */
+.dashboard {
+  padding: var(--spacing-lg);
+}
+
+.dashboard-header {
+  margin-bottom: var(--spacing-xl);
+}
+
+.dashboard-title {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.dashboard-subtitle {
+  color: var(--text-secondary);
+  font-size: var(--font-size-lg);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.stat-card {
+  background: var(--surface);
+  padding: var(--spacing-lg);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 3px var(--shadow);
+}
+
+.stat-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  color: var(--text-secondary);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+}
+
+/* Form styles (for react-bootstrap forms, e.g., in CarsIndex) */
+.form-group {
+  margin-bottom: var(--spacing-md);
+}
+
+.form-label {
+  display: block;
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--spacing-sm);
+  font-size: var(--font-size-base);
+  background: var(--surface);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1); /* Adjusted for Figma primary */
+}
+
+.form-control::placeholder {
+  color: var(--text-secondary);
+}
+
+.form-error {
+  color: var(--error);
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.form-help {
+  color: var(--text-secondary);
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* Button styles (for react-bootstrap buttons, e.g., in CarsIndex) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border-radius: var(--spacing-sm);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+  text-decoration: none;
+  gap: var(--spacing-sm);
+  touch-action: manipulation; /* Supports touch without react-tap-event-plugin */
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--surface);
+  border-color: var(--primary);
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+
+.btn-secondary {
+  background: var(--surface);
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+.btn-secondary:hover {
+  background: #f7fafc;
+  border-color: #cbd5e0;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.btn-lg {
+  padding: 12px 24px;
+  font-size: var(--font-size-lg);
+}
+
+/* Card styles (for CarsIndex, NotificationsIndex) */
+.card {
+  background: var(--surface);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 3px var(--shadow);
+  overflow: hidden;
+}
+
+.card-header {
+  padding: var(--spacing-md) var(--spacing-lg) var(--spacing-sm);
+  border-bottom: 1px solid var(--border);
+}
+
+.card-title {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.card-subtitle {
+  color: var(--text-secondary);
+  font-size: var(--font-size-base);
+}
+
+.card-body {
+  padding: var(--spacing-lg);
+}
+
+.card-footer {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background: #f7fafc;
+  border-top: 1px solid var(--border);
+}
+
+/* Navigation styles (for react-router, e.g., in Header) */
+.nav-menu {
+  padding: var(--spacing-md) 0;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 12px var(--spacing-lg);
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  transition: all 0.2s;
+  border-left: 3px solid transparent;
+}
+
+.nav-item:hover {
+  background: #f7fafc;
+  color: var(--text-primary);
+}
+
+.nav-item.active {
+  background: #e3f2fd; /* Adjusted to complement Figma primary */
+  color: var(--primary);
+  border-left-color: var(--primary);
+}
+
+.nav-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+}
+
+.nav-divider {
+  height: 1px;
+  background: var(--border);
+  margin: var(--spacing-md) var(--spacing-lg);
+}
+
+/* Utility classes */
+.text-sm { font-size: 12px; }
+.text-base { font-size: var(--font-size-base); }
+.text-lg { font-size: var(--font-size-lg); }
+.text-xl { font-size: var(--font-size-xl); }
+.text-2xl { font-size: var(--font-size-2xl); }
+
+.font-medium { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+.font-bold { font-weight: 700; }
+
+.text-gray-500 { color: var(--text-secondary); }
+.text-gray-700 { color: var(--text-primary); }
+.text-gray-900 { color: #111827; }
+
+.mb-2 { margin-bottom: var(--spacing-sm); }
+.mb-4 { margin-bottom: var(--spacing-md); }
+.mb-6 { margin-bottom: var(--spacing-lg); }
+.mb-8 { margin-bottom: var(--spacing-xl); }
+
+.mt-2 { margin-top: var(--spacing-sm); }
+.mt-4 { margin-top: var(--spacing-md); }
+.mt-6 { margin-top: var(--spacing-lg); }
+.mt-8 { margin-top: var(--spacing-xl); }
+
+.flex { display: flex; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-2 { gap: var(--spacing-sm); }
+.gap-4 { gap: var(--spacing-md); }
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mb-1 { margin-bottom: var(--spacing-sm); }
+.mb-2 { margin-bottom: var(--spacing-md); }
+.mb-3 { margin-bottom: var(--spacing-lg); }
+.mb-4 { margin-bottom: var(--spacing-xl); }
+
+.mt-1 { margin-top: var(--spacing-sm); }
+.mt-2 { margin-top: var(--spacing-md); }
+.mt-3 { margin-top: var(--spacing-lg); }
+.mt-4 { margin-top: var(--spacing-xl); }
+
+.p-1 { padding: var(--spacing-sm); }
+.p-2 { padding: var(--spacing-md); }
+.p-3 { padding: var(--spacing-lg); }
+.p-4 { padding: var(--spacing-xl); }
+
+/* Responsive grid (for react-bootstrap grid, e.g., in CarsIndex) */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -10px;
+}
+
+.col {
+  flex: 1;
+  padding: 0 10px;
+}
+
+.col-12 { flex: 0 0 100%; }
+.col-6 { flex: 0 0 50%; }
+.col-4 { flex: 0 0 33.333%; }
+.col-3 { flex: 0 0 25%; }
+
+/* Responsive design */
+@media (max-width: 1200px) {
+  .container {
+    max-width: 100%;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 992px) {
+  .col-lg-6 { flex: 0 0 50%; }
+  .col-lg-4 { flex: 0 0 33.333%; }
+  .col-lg-3 { flex: 0 0 25%; }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  .dashboard {
+    padding: var(--spacing-md);
+  }
+
+  .btn {
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: var(--font-size-lg); /* Prevents zoom on iOS */
+  }
+
+  .card {
+    padding: var(--spacing-md);
+    margin-bottom: 15px;
+  }
+
+  .row {
+    margin: 0 -5px;
+  }
+
+  .col {
+    padding: 0 5px;
+  }
+
+  .col-md-6,
+  .col-md-4,
+  .col-md-3 {
+    flex: 0 0 100%;
+    margin-bottom: 15px;
+  }
+
+  .form-control {
+    font-size: var(--font-size-lg); /* Prevents zoom on iOS */
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-title {
+    font-size: var(--font-size-xl);
+  }
+
+  .btn {
+    padding: 14px 20px;
+    font-size: var(--font-size-lg);
+  }
+
+  .card {
+    padding: var(--spacing-sm);
+  }
+}
