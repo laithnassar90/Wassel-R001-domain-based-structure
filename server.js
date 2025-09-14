@@ -12,9 +12,15 @@ const INDEX_HTML = path.join(BUILD_DIR, 'index.html');
 // Middleware
 app.use(express.static(BUILD_DIR));
 
-// SPA support
+// Example API route (define all API routes before wildcard)
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', uptime: process.uptime() });
+});
+
+// SPA support (only handle non-API GET requests)
 app.get('*', (req, res, next) => {
   if (req.path.startsWith('/api')) return next();
+
   res.sendFile(INDEX_HTML, (err) => {
     if (err) {
       console.error('Error serving index.html:', err);
@@ -23,12 +29,7 @@ app.get('*', (req, res, next) => {
   });
 });
 
-// Example API route
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', uptime: process.uptime() });
-});
-
-// 404 handler
+// 404 handler (for unmatched API routes or static files)
 app.use((req, res) => {
   res.status(404).json({ error: 'Not Found' });
 });
