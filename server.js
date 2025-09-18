@@ -15,13 +15,6 @@ const INDEX_HTML = path.join(BUILD_DIR, 'index.html');
 app.use(helmet());
 app.use(morgan('combined'));
 
-// Log all registered routes
-app._router.stack.forEach((r) => {
-  if (r.route && r.route.path) {
-    console.log(`Route registered: ${r.route.path}`);
-  }
-});
-
 // Example API route
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', uptime: process.uptime() });
