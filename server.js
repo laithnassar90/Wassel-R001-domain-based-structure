@@ -15,7 +15,7 @@ app.get('/api/health', (req, res) => {
 });
 
 // SPA catch-all route
-app.get('/*', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(INDEX_HTML, (err) => {
     if (err) {
       console.error('Error serving index.html:', err);
