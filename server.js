@@ -20,7 +20,7 @@ router.get('/api/health', (req, res) => {
 });
 
 // SPA catch-all route using router
-router.get('/:all*', (req, res) => {
+router.get('/*', (req, res) => {
   res.sendFile(INDEX_HTML, (err) => {
     if (err) {
       console.error('Error serving index.html:', err);
